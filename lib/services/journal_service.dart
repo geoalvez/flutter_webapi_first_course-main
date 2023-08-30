@@ -7,7 +7,7 @@ import 'package:http_interceptor/http/intercepted_client.dart';
 
 class JournalService{
 
-  static const String url = "http://192.168.1.6:3000/";
+  static const String url = "http://192.168.0.103:3000/";
   static const String resource = "journals/";
 
   http.Client client = InterceptedClient.build(interceptors: [LoggingInterceptor()]);
@@ -24,6 +24,18 @@ class JournalService{
         },
         body: jsonJournal);
     return response.statusCode == 201;
+  }
+
+  Future<bool> edit(String id, Journal journal) async{
+    String jsonJournal = json.encode(journal.toMap());
+    http.Response response = await client.put(Uri.parse("${getUrl()}$id"),
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: jsonJournal);
+    return response.statusCode == 200;
+
+
   }
 
   Future<List<Journal>> getAll() async{
