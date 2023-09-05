@@ -7,7 +7,7 @@ import 'package:http_interceptor/http/intercepted_client.dart';
 
 class JournalService{
 
-  static const String url = "http://192.168.0.103:3000/";
+  static const String url = "http://192.168.1.6:3000/";
   static const String resource = "journals/";
 
   http.Client client = InterceptedClient.build(interceptors: [LoggingInterceptor()]);
@@ -36,6 +36,14 @@ class JournalService{
     return response.statusCode == 200;
 
 
+  }
+  
+  Future<bool> delete(String id) async{
+    http.Response response = await http.delete(Uri.parse("${getUrl()}$id"));
+    if (response.statusCode == 200){
+      return true;
+    }
+    return false;
   }
 
   Future<List<Journal>> getAll() async{
