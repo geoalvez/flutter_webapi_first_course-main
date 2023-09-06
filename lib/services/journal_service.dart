@@ -7,7 +7,7 @@ import 'package:http_interceptor/http/intercepted_client.dart';
 
 class JournalService{
 
-  static const String url = "http://192.168.1.6:3000/";
+  static const String url = "http://192.168.0.103:3000/";
   static const String resource = "journals/";
 
   http.Client client = InterceptedClient.build(interceptors: [LoggingInterceptor()]);
